@@ -47,9 +47,9 @@ function getAllDateFormats({day, month, year}) {
     let DDMMYYYY = `${day}${month}${year}`;
     let MMDDYYYY = `${month}${day}${year}`;
     let YYYYMMDD = `${year}${month}${day}`;
-    let DDMMYY = `${day}${month}${year.slice(2)}`;
-    let MMDDYY = `${month}${day}${year.slice(2)}`;
-    let YYMMDD = `${year.slice(2)}${month}${day}`;
+    let DDMMYY = `${day}${month}${year.slice(-2)}`;
+    let MMDDYY = `${month}${day}${year.slice(-2)}`;
+    let YYMMDD = `${year.slice(-2)}${month}${day}`;
     return [
         DDMMYYYY,
         MMDDYYYY,
