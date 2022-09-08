@@ -150,10 +150,10 @@ function checkIfDateisPalindrome(dob) {
     }
     
     if(isPalindromeFlag) {
-        showMessage("Woah! your birthdate is palindrome!");
+        showMessage("Woah! your birthdate is palindrome!✨😊");
     } else {
         let [missedBy, nextDate] = getNextPalindromeDate(dob);
-        showMessage(`The nearest palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed by ${missedBy} days.`);
+        showMessage(`The nearest palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed by ${missedBy} ${(missedBy < 2) ? 'day' : 'days'}.😔😔`);
     }
 }
 
@@ -168,7 +168,7 @@ function clickHandler() {
         };
         checkIfDateisPalindrome(dob);
     } else {
-        showMessage("Dob is required");
+        showMessage("Dob is required 😠😠");
     }
 }
 
