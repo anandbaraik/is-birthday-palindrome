@@ -157,8 +157,17 @@ function checkIfDateisPalindrome(dob) {
     }
 }
 
+function processingPalindrome(dob) {
+    document.querySelector('.anim').style.display = "block";
+    setTimeout(() => {
+        checkIfDateisPalindrome(dob);
+        document.querySelector('.anim').style.display = "none";
+    }, 3000);
+}
+
 function clickHandler() {
     let dobString = dobRef.value;
+    showMessage("");
     if(dobString) {
         let dobArray = dobString.split("-");
         let dob = {
@@ -166,7 +175,7 @@ function clickHandler() {
             month: Number(dobArray[1]),
             year: Number(dobArray[0]),
         };
-        checkIfDateisPalindrome(dob);
+        processingPalindrome(dob);
     } else {
         showMessage("Dob is required 😠😠");
     }
