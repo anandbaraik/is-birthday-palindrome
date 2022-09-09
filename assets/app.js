@@ -135,6 +135,22 @@ function getNextPalindromeDate(date) {
     }
 }
 
+function getPreviousPalindromeDate(date) {
+    let prevDate = getPreviousDate(date);
+    let counter = 0;
+    while(true) {
+        counter++;
+        let dateStr = convertDateToStr(prevDate);
+        let allDateFormatArr = getAllDateFormats(dateStr);
+        for (let index = 0; index < allDateFormatArr.length; index++) {
+            if(isPalindrome(allDateFormatArr[index])) {
+                return [counter, dateStr];
+            }
+        }
+        prevDate = getPreviousDate(prevDate);
+    }
+}
+
 function checkIfDateisPalindrome(dob) {
     let date = convertDateToStr(dob);
     let allDateFormatArr = getAllDateFormats(date);
@@ -150,8 +166,13 @@ function checkIfDateisPalindrome(dob) {
     if(isPalindromeFlag) {
         showMessage("Woah! your birthdate is palindrome!✨😊");
     } else {
-        let [missedBy, nextDate] = getNextPalindromeDate(dob);
-        showMessage(`The nearest palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed by ${missedBy} ${(missedBy < 2) ? 'day' : 'days'}.😔😔`);
+        let [missedByFurtherDays, nextDate] = getNextPalindromeDate(dob);
+        let [missedByBackDays, prevDate] = getPreviousPalindromeDate(dob);
+        if(missedByBackDays < missedByFurtherDays) {
+            showMessage(`The nearest palindrome date is ${prevDate.day}-${prevDate.month}-${prevDate.year}, you missed by ${missedByBackDays} ${(missedByBackDays < 2) ? 'day' : 'days'}.😔😔`);
+        } else {
+            showMessage(`The nearest palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed by ${missedByFurtherDays} ${(missedByFurtherDays < 2) ? 'day' : 'days'}.😔😔`);
+        }
     }
 }
 
@@ -206,13 +227,5 @@ function getPreviousDate(date) {
         year: year
     }
 }
-
-let date = {
-    day: 1,
-    month: 4,
-    year: 2021
-}
-console.log(date);
-console.log(getPreviousDate(date));
 
 btnRef.addEventListener("click", clickHandler);
