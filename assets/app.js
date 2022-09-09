@@ -1,7 +1,7 @@
 const dobRef = document.querySelector("#dob");
 const btnRef = document.querySelector("#chekbtn");
 const outputBoxRef = document.querySelector(".outputBox");
-
+const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 function showMessage(msg) {
     outputBoxRef.innerHTML = msg;
@@ -85,8 +85,6 @@ function getNextDate(date) {
     let day = date.day + 1;
     let month = date.month;
     let year = date.year;
-
-    const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     //if feb: check leap year
     if(month == 2){
@@ -180,5 +178,41 @@ function clickHandler() {
         showMessage("Dob is required 😠😠");
     }
 }
+
+function getPreviousDate(date) {
+    let day = date.day - 1;
+    let month = date.month;
+    let year = date.year;
+
+    if(day == 0) {
+        month--;
+        if(month == 0) {
+            day = 31;
+            month = 12;
+            year--;
+        } else if(month == 2) {
+            day = 28;
+            if(isLeapYear(year)) {
+                day = 29;
+            }
+        } else {
+            day = daysInMonth[month-1];
+        }
+    }
+
+    return {
+        day: day,
+        month: month,
+        year: year
+    }
+}
+
+let date = {
+    day: 1,
+    month: 4,
+    year: 2021
+}
+console.log(date);
+console.log(getPreviousDate(date));
 
 btnRef.addEventListener("click", clickHandler);
