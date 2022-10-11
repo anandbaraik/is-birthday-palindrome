@@ -19,6 +19,7 @@ function isPalindrome(str) {
     return reversedStr === str;
 }
 
+//convert given integer date to string to match date format ie. DD,MM,YY etc
 function convertDateToStr(date) {
     let dateStr = {
         day: "",
@@ -43,6 +44,7 @@ function convertDateToStr(date) {
     return dateStr;
 }
 
+//get all date format to check palindrome in all format
 function getAllDateFormats({day, month, year}) {
     let DDMMYYYY = `${day}${month}${year}`;
     let MMDDYYYY = `${month}${day}${year}`;
@@ -88,25 +90,28 @@ function getNextDate(date) {
 
     //if feb: check leap year
     if(month == 2){
+        //if leap year & day exceeds then increase month
         if(isLeapYear(year)) {
             if(day > 29) {
                 day = 1;
                 month = 3;
             }
         } else {
+            //if not a leap year & day exceeds 28 then increase month
             if(day > 28) {
                 day = 1;
                 month = 3;
             }
         }
-    } else { //else rest
+    } else { 
+        //else rest : 32 > [1-1](Jan)
         if(day > daysInMonth[month - 1]) {
             day = 1;
             month ++;
         }
     }
 
-    //if month > 12
+    //if month > 12 then set new year
     if(month > 12) {
         month = 1;
         year ++;
@@ -154,7 +159,7 @@ function getPreviousPalindromeDate(date) {
 function checkIfDateisPalindrome(dob) {
     let date = convertDateToStr(dob);
     let allDateFormatArr = getAllDateFormats(date);
-    let isPalindromeFlag = false;
+    let isPalindromeFlag = false; //to be used for calculating nearest palindrome conditionally
     for (let index = 0; index < allDateFormatArr.length; index++) {
         if(isPalindrome(allDateFormatArr[index])) {
             isPalindromeFlag = true;
@@ -207,6 +212,7 @@ function getPreviousDate(date) {
 
     if(day == 0) {
         month--;
+        //if month is 0, decrease year by setting day 31 & month 12
         if(month == 0) {
             day = 31;
             month = 12;
